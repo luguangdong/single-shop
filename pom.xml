@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.luxiu.single.shop</groupId>
+    <artifactId>single-shop</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>single-shop-dependencies</module>
+        <module>single-shop-commons</module>
+        <module>single-shop-domain</module>
+        <module>single-shop-external</module>
+        <module>single-shop-web-admin</module>
+        <module>single-shop-web-api</module>
+        <module>single-shop-web-ui</module>
+    </modules>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.luxiu.single.shop</groupId>
+                <artifactId>single-shop-dependencies</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <distributionManagement>
+        <repository>
+            <id>luxiu-repo-release</id>
+            <name>Nexus Release Repository</name>
+            <url>http://192.168.137.102:8081/repository/luxiu-repo-release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>luxiu-repo-snapshot</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://192.168.137.102:8081/repository/luxiu-repo-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>luxiu-repo-group</id>
+            <name>Nexus Repository</name>
+            <url>http://192.168.137.102:8081/repository/luxiu-repo-group/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>luxiu-repo-group</id>
+            <name>Nexus Plugin Repository</name>
+            <url>http://192.168.137.102:8081/repository/luxiu-repo-group/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>
