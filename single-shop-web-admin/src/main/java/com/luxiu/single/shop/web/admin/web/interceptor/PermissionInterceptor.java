@@ -1,7 +1,9 @@
 package com.luxiu.single.shop.web.admin.web.interceptor;
 
 import com.luxiu.single.shop.commons.constant.ConstantUtils;
+import com.luxiu.single.shop.commons.utils.CookieUtils;
 import com.luxiu.single.shop.domain.TbUser;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,9 +29,15 @@ public class PermissionInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         // 以 login 结尾的请求
         if (modelAndView != null && modelAndView.getViewName() != null && modelAndView.getViewName().endsWith("login")) {
-            TbUser user = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
+           //判断session
+            /* TbUser user = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
             if (user != null) {
                 httpServletResponse.sendRedirect("/main");
+            }*/
+            //判断cookie
+            String userinfo = CookieUtils.getCookieValue(httpServletRequest, "userinfo");
+            if (!StringUtils.isBlank(userinfo)) {
+                httpServletResponse.sendRedirect("/login");
             }
         }
     }

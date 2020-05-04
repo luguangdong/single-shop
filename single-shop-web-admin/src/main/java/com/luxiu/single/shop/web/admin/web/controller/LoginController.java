@@ -53,23 +53,23 @@ public class LoginController {
         TbUser tbUser = tbUserService.login(email, password);
         if(tbUser == null){
             model.addAttribute("message", "用户名或密码错误，请重新输入");
-            return login(httpServletRequest,httpServletResponse);
+            login(httpServletRequest);
         }else {
             //选择记住我,将用户信息放入cookie中
             if(isRemeber){
-                CookieUtils.setCookie(httpServletRequest,httpServletResponse,"userinfo",String.format("%s:%s",email,password),7 * 24 * 60 * 60);
-                logger.info("===>LoginController.login() POST方法中选择记住我,cookie信息为: cookieName=userinfo,cookieValue={}:{}",email,password);
+                CookieUtils.setCookie(httpServletRequest,httpServletResponse,ConstantUtils.COOKIE_USER,String.format("%s:%s",email,password),7 * 24 * 60 * 60);
+                logger.info("===>LoginController.login() POST方法中选择记住我,cookie信息为: cookieName={},cookieValue={}:{}",ConstantUtils.COOKIE_USER,email,password);
             }
             //将登录信息放入会话,
             httpServletRequest.getSession().setAttribute(ConstantUtils.SESSION_USER, tbUser);
             return "redirect:/main";
         }
-
+        return "login";
     }
 
     @RequestMapping(value = {"", "login"}, method = RequestMethod.GET)
-    public String login(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {
-        String userinfo = CookieUtils.getCookieValue(httpServletRequest, "userinfo");
+    public String login(HttpServletRequest httpServletRequest) {
+        String userinfo = CookieUtils.getCookieValue(httpServletRequest, ConstantUtils.COOKIE_USER);
         if(!StringUtils.isBlank(userinfo)){
             String[] userinfoArray = userinfo.split(":");
             String email = userinfoArray[0];
@@ -77,7 +77,7 @@ public class LoginController {
             httpServletRequest.setAttribute("email",email);
             httpServletRequest.setAttribute("password",password);
             httpServletRequest.setAttribute("isRemeber",true);
-            logger.info("===>LoginController.login() GET方法中获取前端页面cookie信息为: cookieName=userinfo,cookieValue={}:{}",email,password);
+            logger.info("===>LoginController.login() GET方法中获取前端页面cookie信息为: cookieName={},cookieValue={}:{}",ConstantUtils.COOKIE_USER,email,password);
         }
 
 

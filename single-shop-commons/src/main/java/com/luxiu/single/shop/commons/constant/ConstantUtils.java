@@ -13,4 +13,6 @@ package com.luxiu.single.shop.commons.constant;
  */
 public class ConstantUtils {
     public static final String SESSION_USER = "user";
+
+    public static final String COOKIE_USER = "userinfo";
 }
