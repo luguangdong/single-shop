@@ -6,6 +6,8 @@ import com.luxiu.single.shop.domain.TbUser;
 import com.luxiu.single.shop.domain.vo.UserVo;
 import com.luxiu.single.shop.web.admin.service.TbUserService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping
 public class LoginController {
+    public static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private TbUserService tbUserService;
@@ -40,9 +43,11 @@ public class LoginController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String login(@RequestParam String email, @RequestParam String password, @RequestParam(value = "isRemember",required = false) String isRemember, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Model model){
         boolean isRemeber = isRemember == null ? false : true;
+        logger.info("===>LoginController.login() POST方法前端传递的参数:email={},password={},isRemember={}",email,password,isRemeber);
         //没有选择记住我,将之前的cookie信息删除
         if(!isRemeber){
             CookieUtils.deleteCookie(httpServletRequest,httpServletResponse,"userinfo");
+            logger.info("===>LoginController.login() POST方法中没有选择记住我");
         }
 
         TbUser tbUser = tbUserService.login(email, password);
@@ -53,6 +58,7 @@ public class LoginController {
             //选择记住我,将用户信息放入cookie中
             if(isRemeber){
                 CookieUtils.setCookie(httpServletRequest,httpServletResponse,"userinfo",String.format("%s:%s",email,password),7 * 24 * 60 * 60);
+                logger.info("===>LoginController.login() POST方法中选择记住我,cookie信息为: cookieName=userinfo,cookieValue={}:{}",email,password);
             }
             //将登录信息放入会话,
             httpServletRequest.getSession().setAttribute(ConstantUtils.SESSION_USER, tbUser);
@@ -71,6 +77,7 @@ public class LoginController {
             httpServletRequest.setAttribute("email",email);
             httpServletRequest.setAttribute("password",password);
             httpServletRequest.setAttribute("isRemeber",true);
+            logger.info("===>LoginController.login() GET方法中获取前端页面cookie信息为: cookieName=userinfo,cookieValue={}:{}",email,password);
         }
 
 
