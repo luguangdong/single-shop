@@ -40,7 +40,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>springServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/single-shop-web-admin/**</url-pattern>
     </servlet-mapping>
 
     <servlet>
