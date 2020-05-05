@@ -37,8 +37,8 @@ public class UserController {
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(Model model) {
-        List<TbUser> data = tbUserService.selectAll();
-        model.addAttribute("data",data);
+        List<TbUser> tbUsers = tbUserService.selectAll();
+        model.addAttribute("tbUsers",tbUsers);
         return "user_list";
     }
 }

@@ -30,14 +30,9 @@ public class PermissionInterceptor implements HandlerInterceptor {
         // 以 login 结尾的请求
         if (modelAndView != null && modelAndView.getViewName() != null && modelAndView.getViewName().endsWith("login")) {
            //判断session
-            /* TbUser user = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
+             TbUser user = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
             if (user != null) {
                 httpServletResponse.sendRedirect("/main");
-            }*/
-            //判断cookie
-            String userinfo = CookieUtils.getCookieValue(httpServletRequest, "userinfo");
-            if (!StringUtils.isBlank(userinfo)) {
-                httpServletResponse.sendRedirect("/login");
             }
         }
     }
