@@ -1,5 +1,6 @@
 package com.luxiu.single.shop.web.admin.web.controller;
 
+import com.alibaba.druid.support.http.util.IPAddress;
 import com.luxiu.single.shop.commons.constant.ConstantUtils;
 import com.luxiu.single.shop.commons.utils.CookieUtils;
 import com.luxiu.single.shop.domain.TbUser;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * <p>
@@ -42,6 +45,16 @@ public class LoginController {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String login(@RequestParam String email, @RequestParam String password, @RequestParam(value = "isRemember",required = false) String isRemember, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Model model){
+        try {
+            InetAddress localHost = InetAddress.getLocalHost();
+            String hostAddress = localHost.getHostAddress();
+            String hostName = localHost.getHostName();
+            logger.info("===>Nginx负载均衡,当前访问的服务器:hostAddress={},hostName={}",hostAddress,hostName);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+
         boolean isRemeber = isRemember == null ? false : true;
         logger.info("===>LoginController.login() POST方法前端传递的参数:email={},password={},isRemember={}",email,password,isRemeber);
         //没有选择记住我,将之前的cookie信息删除
