@@ -3,6 +3,7 @@ package com.luxiu.single.shop.web.admin.web.controller;
 import com.alibaba.druid.support.http.util.IPAddress;
 import com.luxiu.single.shop.commons.constant.ConstantUtils;
 import com.luxiu.single.shop.commons.utils.CookieUtils;
+import com.luxiu.single.shop.commons.utils.RunTimeUtil;
 import com.luxiu.single.shop.domain.TbUser;
 import com.luxiu.single.shop.domain.vo.UserVo;
 import com.luxiu.single.shop.web.admin.service.TbUserService;
@@ -48,8 +49,8 @@ public class LoginController {
         try {
             InetAddress localHost = InetAddress.getLocalHost();
             String hostAddress = localHost.getHostAddress();
-            String hostName = localHost.getHostName();
-            logger.info("===>Nginx负载均衡,当前访问的服务器:hostAddress={},hostName={}",hostAddress,hostName);
+            int tomcatPort = RunTimeUtil.getTomcatPort();
+            logger.info("===>Nginx负载均衡,当前访问的服务器:hostAddress={},tomcatPort={}",hostAddress,tomcatPort);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
