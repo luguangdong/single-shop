@@ -34,9 +34,32 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-xs-12">
+                    <c:if test="${baseResult != null}">
+                        <div class="alert alert-${baseResult.status == 200 ? "success" : "danger"} alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                ${baseResult.message}
+                        </div>
+                    </c:if>
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">用户列表</h3>
+
+                            <div class="box-body">
+                                <a href="/user/form">
+                                    <button type="button" class="btn  btn-primary btn-sm">
+                                        <i class="fa fa-fw fa-plus-square"></i>
+                                    </button>
+                                </a>
+                                <button  type="button" class="btn  btn-danger btn-sm">
+                                    <i class="fa fa-fw fa-trash"></i>
+                                </button>
+                                <button  type="button" class="btn  btn-primary btn-sm">
+                                    <i class="fa fa-fw fa-upload"></i>
+                                </button>
+                                <button  type="button" class="btn  btn-primary btn-sm">
+                                    <i class="fa fa-fw fa-download"></i>
+                                </button>
+                            </div>
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -69,7 +92,17 @@
                                     <td>${tbUser.phone}</td>
                                     <td>${tbUser.email}</td>
                                     <td><fmt:formatDate value="${tbUser.updated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                                    <td>编辑</td>
+                                    <td>
+                                        <button  type="button" class="btn  btn-primary btn-sm">
+                                            <i class="fa fa-fw fa-search"></i>
+                                        </button>&nbsp;&nbsp;
+                                        <button type="button" class="btn  btn-success btn-sm">
+                                          <i class="fa fa-fw fa-edit"></i>
+                                        </button>&nbsp;&nbsp;
+                                        <button type="button" class="btn  btn-danger btn-sm">
+                                            <i class="fa fa-fw fa-trash"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 </c:forEach>
                                 </tbody>

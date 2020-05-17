@@ -1,5 +1,6 @@
 package com.luxiu.single.shop.web.admin.service;
 
+import com.luxiu.single.shop.commons.dto.BaseResult;
 import com.luxiu.single.shop.domain.TbUser;
 
 import java.util.List;
@@ -24,4 +25,8 @@ public interface TbUserService {
     List<TbUser> selectAll();
 
     TbUser login(String email,String password);
+
+    BaseResult save(TbUser tbUser);
+
+    TbUser selectById(Long id);
 }
