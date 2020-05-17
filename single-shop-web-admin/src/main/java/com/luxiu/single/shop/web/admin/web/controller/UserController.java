@@ -33,6 +33,13 @@ public class UserController {
     @Autowired
     private TbUserService tbUserService;
 
+    /**
+     * 表单数据初始化
+     * 功能: 保存时记录表单中已经填写的数据,编辑时在表单中显示数据库存在的数据
+     * @ModelAttribute 注解说明: 使用该注解的方法,一定在使用 @RequestMapping的方法之前执行
+     * @param id
+     * @return
+     */
     @ModelAttribute
     public TbUser getTbUser(Long id) {
         TbUser tbUser = null;
