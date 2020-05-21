@@ -47,7 +47,7 @@
                     <!-- Horizontal Form -->
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">用户表单</h3>
+                            <h3 class="box-title">${tbUser.id == null ? "新增" : "编辑"}用户</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
